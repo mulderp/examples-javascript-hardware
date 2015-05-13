@@ -1,0 +1,107 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>Blinking LED UI</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min.js"></script>
+
+  <style>
+    body{
+      font:500 14px/21px 'Helvetica Neue', Helvetica, Arials;
+      padding:40px;
+    }
+    .board  {
+      float: left;
+    }
+    .status {
+      width: 200px;
+      float: right;
+    }
+</style>
+</head>
+<body>
+
+  <section class="board">
+    <svg width="400" height="360" id="schematic">
+    </svg>
+  </board>
+
+  <script>
+
+var PinView = Backbone.View.extend({
+
+  events: {
+    'click': 'changeState'
+  },
+
+  render: function() {
+    var rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+    rect.setAttribute('x', 14);
+    rect.setAttribute('y', 14);
+    rect.setAttribute('width',  30);
+    rect.setAttribute('height', 30);
+    rect.setAttribute('style', 'fill:' + this.model.getColor() + ';stroke:pink');
+    this.$el.html(rect);
+  },
+
+  changeState: function(e) {
+    this.model.toggleState();
+  },
+
+  initialize: function() {
+    this.listenTo(this.model, 'change:state', this.render);
+  }
+
+});
+
+var StatusView = Backbone.View.extend({
+
+  render: function() {
+    this.$el.html('LED is ' + this.model.getStatus());
+  },
+
+  initialize: function() {
+    this.listenTo(this.model, 'change:state', this.render);
+  }
+
+});
+
+var LEDModel = Backbone.Model.extend({
+  defaults: {
+    state: 0
+  },
+
+  getColor: function() {
+    return (this.get('state') ? 'red' : 'black');
+  },
+
+  toggleState: function() {
+    var current = this.get('state');
+    this.set('state', !current);
+  },
+
+  getStatus: function() {
+    return (this.get('state') ? 'ON' : 'OFF');
+  }
+
+});
+var ledModel = new LEDModel();
+
+document.addEventListener('DOMContentLoaded', function () {
+
+  var led = new PinView({el: '#schematic', model: ledModel });
+  led.render();
+
+  var status = new StatusView({el: '.status', model: ledModel });
+  status.render();
+
+});
+</script>
+
+</body>
+
+</html>

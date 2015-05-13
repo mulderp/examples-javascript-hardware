@@ -1,0 +1,59 @@
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <title>7 Segment Display editor</title>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.0/backbone-min.js"></script>
+
+  <style>
+    body{
+      font:500 14px/21px 'Helvetica Neue', Helvetica, Arials;
+      padding:40px;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -o-user-select: none;
+      user-select: none;
+    }
+    .display  {
+      float: left;
+    }
+    .pinout  {
+      float: left;
+    }
+    .status {
+      width: 600px;
+      float: right;
+    }
+</style>
+</head>
+<body>
+
+  <h1>7 Segment display UI</h1>
+
+
+  <p>Click segments</p>
+
+  <section class="display">
+    <svg width="400" height="360" viewBox="1 -1 12 20">
+      <g id="pins">
+      </g>
+    </svg>
+  </section>
+
+  <section class="pinout">
+    <img src="pinout.png" />
+  </section>
+
+  <section class="status">
+  </section>
+
+  <script src="bundle.js"></script>
+
+</body>
+
+</html>

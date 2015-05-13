@@ -1,2 +1,6 @@
 # nodejs-for-embedded-systems
-Repository for examples
+Repository for book examples
+
+# License
+
+(C) 2015, Patrick Mulder
